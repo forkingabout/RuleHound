@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>RuleHound</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="/static/style.css">
+
+    <!-- Cytoscape.js and the fCoSE layout (with its two dependencies) -->
+    <script src="https://cdn.jsdelivr.net/npm/cytoscape@3.30.2/dist/cytoscape.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/layout-base@2.0.1/layout-base.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cose-base@2.2.0/cose-base.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cytoscape-fcose@2.2.0/cytoscape-fcose.js"></script>
+</head>
+
+<body>
+
+    <header id="topbar">
+        <div class="brand">RuleHound</div>
+
+        <div id="query-bar">
+            <select id="prebuilt" aria-label="Pre-built queries">
+                <option value="">Pre-built queries</option>
+            </select>
+
+            <textarea
+                id="query"
+                rows="1"
+                spellcheck="false"
+                autocomplete="off"
+                aria-label="Cypher query"
+                placeholder="MATCH (n) RETURN n"
+            ></textarea>
+
+            <button id="run" class="primary" title="Run query (Enter)">Run</button>
+            <button id="cancel" class="danger" title="Cancel the running query (Esc)" hidden>Cancel</button>
+        </div>
+
+        <div id="tools">
+            <input id="search" type="text" placeholder="Find in graph" aria-label="Find in graph">
+
+            <select id="layout" aria-label="Layout">
+                <option value="fcose">Force-directed</option>
+                <option value="breadthfirst">Hierarchy</option>
+                <option value="concentric">Concentric</option>
+                <option value="circle">Circle</option>
+                <option value="grid">Grid</option>
+            </select>
+
+            <button id="fit" title="Fit graph to screen">Fit</button>
+            <button id="upload-button" title="Ingest a RuleHound YAML file">Upload YAML</button>
+            <input id="upload" type="file" accept=".yaml,.yml" hidden>
+            <button id="clear-button" class="danger" title="Delete every object and link from the database">Clear database</button>
+        </div>
+    </header>
+
+    <main>
+        <div id="cy"></div>
+
+        <aside id="details" class="panel">
+            <h2 id="details-title">Nothing selected</h2>
+            <div id="details-content">
+                <p class="hint">Click an object or link to inspect it. Double-click an object to pull in its neighbours.</p>
+            </div>
+        </aside>
+
+        <div id="legend" class="panel" hidden></div>
+
+        <div id="empty" hidden>
+            <p id="empty-message">No objects matched this query.</p>
+        </div>
+
+        <div id="loading" hidden>Running query</div>
+    </main>
+
+    <footer id="statusbar">
+        <span id="status">Ready</span>
+        <span id="meta"></span>
+        <span id="counts"></span>
+    </footer>
+
+    <script src="/static/app.js"></script>
+
+</html>
