@@ -3,7 +3,7 @@
 Meta:
   Vendor: "SonicWall"
   Model: "NSA 2700"
-  Firmware: null 
+  Firmware: "7.3.3-7015-R9691"
   OS Version: "SonicOS 7"
   KnownCompatability:
   - "NSA 2700 Build 7.3.3-7015-R9691 SonicOS 7.3.3"
